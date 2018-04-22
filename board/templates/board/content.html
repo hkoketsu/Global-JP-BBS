@@ -1,0 +1,46 @@
+{% extends "board/base.html" %}
+
+{% block navbar_content %}
+    <a href="{% url 'board:logout' %}" class="ml-auto">Log out</a>
+{% endblock %}
+
+{% block content %}
+    <h5 class="mb-3">Topic</h5>
+    <div class="main-post mb-5">
+        <h3>{{ post.title }}</h3>
+        <div class="main-post-content">
+            {% if request.user.username == post.user %}
+                <a href="{% url 'board:delete_post' post.id %}" class="btn btn-primary mx-2 float-sm-right">Delete</a>
+                <a href="{% url 'board:update_post' post.id %}" class="btn btn-primary mx-2 float-sm-right">Update</a>
+            {% endif %}
+            <div class="ml-2 mb-3"><small>Posted by {{ post.user }} on {{ post.date_posted }}</small></div>
+            <div class="ml-3 mt-3">{{ post.content | linebreaks }}</div>
+
+
+        </div>
+
+    </div>
+
+    <div class="comments_section mb-3">
+        <h5>Comments</h5>
+        <div class="comments mb-3 ml-3">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment row mt-4">
+                        <div class="col-lg-8">{{ comment.content | linebreaks }}</div>
+                        <div class="col-lg-4"><small>By {{ comment.user }} on {{ comment.date_posted }}</small></div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No comments are posted yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="comment-btn">
+            <a href="{% url 'board:comment' post.id %}" class="btn btn-primary">Comment</a>
+        </div>
+    </div>
+
+
+    <a href="{% url 'board:index' %}">Back</a>
+{% endblock %}

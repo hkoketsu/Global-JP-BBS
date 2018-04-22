@@ -1,0 +1,97 @@
+{% extends "board/base.html" %}
+
+{% block navbar_content %}
+    {% if user.is_authenticated %}
+        <span class="d-none d-lg-inline mr-auto">Welcome, {{ request.user.username }}.</span>
+        <a href="{% url 'board:logout' %}" class="btn btn-primary">Log out</a>
+    {% else %}
+        <span class="d-none d-lg-inline mr-auto">Welcome, a guest.</span>
+        <div class="ml-auto">
+            <a href="{% url 'board:signin' %}" class="btn btn-primary mx-2">Sign in</a>
+            <a href="{% url 'board:login' %}" class="btn btn-primary mx-2"> Log in</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'board:add_post' %}" class="btn btn-primary mt-2 mb-3 float-none float-sm-left">New Post</a>
+    <a href="{% url 'board:category_list' %}" class="btn btn-primary mt-2 mb-3 ml-2 d-inline-block d-md-none float-none float-sm-left">Category</a>
+
+    {% if posts %}
+        <div class="search_form float-none float-sm-right">
+            <form class="mt-2 mb-3" action="{% url 'board:word_search' %}" method="get" accept-charset="utf-8">
+                <input class="form-control" name="q" type="text" placeholder=" Search">
+            </form>
+        </div>
+
+        <div>
+            <table class="table table-light table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width:20%" class="d-none d-md-table-cell">User</th>
+                        <th style="width:30%">Topic</th>
+                        <th style="width:15%" class="d-none d-md-table-cell"><a href="{% url 'board:category_list' %}" class="text-white">Category</a></th>
+                        <th style="width:15%" class="d-none d-md-table-cell">Comments</th>
+                        <th style="width:20%" class="d-none d-lg-table-cell">Date Posted</th>
+                    </tr>
+                </thead>
+
+                {% for post in posts %}
+                    <tbody>
+                        <tr>
+                            <td class="d-none d-md-table-cell">{{ post.user }}</td>
+                            <td><a href="{% url 'board:content' post.id %}">{{ post.title }}</a></td>
+                            <td class="d-none d-md-table-cell">{{ post.category }}</td>
+                            <td class="d-none d-md-table-cell">
+                                {{ post.comment_set.count }}
+                                {% if post.comment_set.last.was_recently_added %}New
+                                {% endif %}
+                            </td>
+                            <td class="d-none d-lg-table-cell">{{ post.date_posted }}</td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+        {% if is_paginated %}
+            <nav>
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'board:logout' %}" class="ml-auto btn btn-primary d-block d-sm-none">Log out</a>
+        {% else %}
+            <div class="text-center mt-5">
+                <a href="{% url 'board:signin' %}" class="btn btn-primary m-3 d-block d-sm-none">Sign in</a>
+                <a href="{% url 'board:login' %}" class="btn btn-primary m-3 d-block d-sm-none"> Log in</a>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <div class="clearfix"></div>
+        <p class="">No posts are available yet. Post a first topic!</p>
+    {% endif %}
+
+{% endblock %}

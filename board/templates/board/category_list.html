@@ -1,0 +1,18 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+    <h3>Categories</h3>
+    <div class="m-3">
+      {% for c in categories %}
+      <div id="c-{{ c.pk }}">
+          <a href="{% url 'board:category_search' c.name %}" >
+              {{ c.name }} ({{ c.post_set.count }})
+          </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a class="ml-2 my-3 btn btn-primary" href="{% url 'board:category_add' %}">Add a category</a>
+    <br>
+    <a href="{% url 'board:index' %}">Back</a>
+{% endblock %}

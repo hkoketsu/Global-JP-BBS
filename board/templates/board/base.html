@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="{% static 'board/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'board/custom.css' %}" />
+
+
+        <title>{% block title %}海外大生 掲示板{% endblock %}</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-ex fixed-top navbar-light bg-light">
+          <a class="navbar-brand">Global JP</a>
+            {% block navbar_content %}
+            {% endblock %}
+        </nav>
+
+        <div class="container container-ex">
+            <div class="content-wrapper">
+                {% block home_url %}
+                    <div class="top-title middle mt-sm-3 p-3">
+                        <h2><a href="{% url 'board:index' %}" class="text-white">
+                            Global JP University Student Board</a></h2>
+                    </div>
+                {% endblock %}
+                <div class="main-wrapper">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+            <footer>
+                <p>管理人</p>
+                <div class="pl-4">
+                    <p>纐纈宏樹 (contact: hiroki.koketsu@gmail.com)</p>
+                    <p></p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

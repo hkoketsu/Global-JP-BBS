@@ -1,0 +1,49 @@
+{% extends "board/base.html" %}
+
+{% block navbar_content %}
+    <span class="mr-auto d-none d-lg-inline">Hello, a guest.</span>
+{% endblock %}
+
+{% block home_url %}{% endblock %}
+
+{% block content %}
+    <div class="top-wrapper">
+        <h2 class="home-top-title middle">Global JP University Student Board</h2>
+        <p class="px-2 text-center">海外に留学する日本人学生のための情報共有BBS</p>
+
+        <div class="text-center">
+            <p class="mb-4 text-white">ログインしないで入る場合は<a class="text-info" href="{% url "board:index" %}">こちらから</a></p>
+            <a href="{% url 'board:signin' %}" class="btn btn-primary mx-2">Sign in</a>
+            <a href="{% url 'board:login' %}" class="btn btn-primary mx-2"> Log in</a>
+        </div>
+    </div>
+    <div class="">
+
+    </div>
+    <div class="about-wrapper">
+        <h2 class="pt-5 text-center">About</h2>
+        <div class="about-content text-center p-4">
+            <h6 class="mb-4">海外の大学に留学している、もしくはしたいと思っている人たちの情報共有スペース</h6>
+            <div>
+                <p>日本で就職しようと思っているけど、情報がなくて困っている<p>
+                <p>海外の大学に留学したいけど、周りに同じような境遇の人がいない</p>
+                <p>現地の留学生から話が聞きたい、などなど</p>
+            </div>
+            <div class="my-4">
+                <p>海外大生は母数も少なく、世界中に分散しているため、情報が集めにくい。</p>
+                <p>そんな悩みを解消するために、現在カナダの大学に在籍している日本人が作りました。</p>
+            </div>
+            <div>
+                <h6 class="my-4">Topics</h6>
+                <p>学校について</p>
+                <p>日本での就活</p>
+                <p>高校からの進学</p>
+                <p>現地情報</p>
+            <p>etc..</p>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

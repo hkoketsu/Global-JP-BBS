@@ -1,0 +1,38 @@
+{% extends "board/base.html" %}
+
+
+{% block content %}
+    <form method="post" action="{% url 'board:login' %}">
+    {% csrf_token %}
+
+
+        <h3>Log in</h3>
+
+        <div class="login-form my-5 mx-3">
+            <div class="text-danger">
+                <p>{{ form.non_field_errors }}</p>
+            </div>
+            {% for field in form %}
+                <div class="row text-danger">
+                    {{ field.errors }}
+                </div>
+                <div class="row m-2 justify-content-start ">
+                    <div class="col-md-3">
+                        {{ field.label }}
+                    </div>
+                    <div class="col">
+                        {{ field }}
+                    </div>
+                </div>
+              {% endfor %}
+            <input class="btn btn-primary mx-3 px-5 my-5" type="submit" value="Log in">
+        </div>
+    </form>
+
+    <div class="mx-2 mb-5">
+        <p>会員登録は<a href="{% url 'board:signin' %}">こちらから</a>.</p>
+
+    </div>
+
+    <a href="{% url 'board:home' %}">Back</a>
+{% endblock %}

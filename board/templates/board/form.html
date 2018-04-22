@@ -1,0 +1,22 @@
+{% extends "board/base.html" %}
+
+{% block title %}Post your topic{% endblock %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <table class="table">
+            {{ form }}
+        </table>
+
+        <div class="text-center m-2">
+            <button class="btn btn-primary float-right w-25"type="submit">send</button>
+        </div>
+    </form>
+
+    {% block add_category %}{% endblock %}
+
+    <a href="{% url 'board:index' %}">Back</a>
+{% endblock %}

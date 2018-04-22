@@ -1,0 +1,12 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p class="ml-2 mt-3"><a href="{% url 'board:category_add' %}">カテゴリー追加</a></p>
+        <input type="submit" value="Update" class="mt-3 mb-5 ml-2 btn btn-primary"/>
+    </form>
+
+    <a href="{% url 'board:content' post.id %}">Back</a>
+{% endblock %}
