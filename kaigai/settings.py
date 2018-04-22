@@ -25,7 +25,7 @@ SECRET_KEY = 'azu2e$d&cf_i%!jmp3eg0*-r@3e-nk2-lrhaq6fcklsn$98-!('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.13', '127.0.0.1', '192.168.0.14']
+ALLOWED_HOSTS = ['192.168.0.13', '127.0.0.1', '192.168.0.14', 'global-jp-bbs.herokuapp.com']
 
 
 # Application definition
