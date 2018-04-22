@@ -76,16 +76,21 @@ WSGI_APPLICATION = 'kaigai.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kaigai_board',
-        'USER': 'hkoketsu',
-        'PASSWORD': 'Hiroki803*',
-        'HOST': 'localhost',
-        'PORT': '3306',
+import os
+import dj_database_url
+
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+if bool(os.environ.get('LOCAL_DEV', False)):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+        }
     }
-}
 
 
 # Password validation
