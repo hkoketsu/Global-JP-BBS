@@ -7,4 +7,5 @@ https://global-jp-bbs.herokuapp.com
 ## Features
 - Signin & Login system
 - Posts & Comments
+- Search posts by topic, category, or username
 - Able to manage entries from an administrator
